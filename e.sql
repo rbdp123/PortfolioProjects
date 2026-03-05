@@ -108,21 +108,11 @@ IGNORE 1 ROWS
 	@weekly_icu_admissions_per_million,
 	@weekly_hosp_admissions,
 	@v_weekly_hosp_admissions_per_million)
-
 SET 
 	`date` = STR_TO_DATE(@`date`, '%d/%m/%Y'),
 	population = NULLIF(@population, ''),
 	total_cases = NULLIF(@total_cases, ''),
-	new_cases = NULLIF( -- 4. Si el resultado es '', devuelve NULL
-					TRIM( -- 3. Limpia residuos de espacios en los extremos
-						REPLACE( -- 2. Elimina espacios estándar ' '
-							REPLACE(@new_cases, CHAR(160), ''),  -- 1. Elimina espacios de no separación (ASCII 160)
-						' ', 
-						''
-						)
-					), 
-					''
-				),
+	new_cases = NULLIF(TRIM(REPLACE(REPLACE(@new_cases, CHAR(160), ''),' ', '')), ''),
 	new_cases_smoothed = NULLIF(@new_cases_smoothed, ''),
 	total_deaths = NULLIF(@total_deaths, ''),
 	new_deaths = NULLIF(@new_deaths, ''),
@@ -143,9 +133,7 @@ SET
 	weekly_hosp_admissions = NULLIF(@weekly_hosp_admissions, ''),
 	weekly_hosp_admissions_per_million = 
 	CASE 
-        WHEN @v_weekly_hosp_admissions_per_million REGEXP '[0-9]'	-- 1. Verifica si el dato contiene al menos un dígito (0-9)
-			THEN TRIM(@v_weekly_hosp_admissions_per_million)		-- 2. Si hay números, elimina espacios en blanco en los extremos
-        ELSE NULL 													-- 3. De lo contrario, devuelve 'NULL'
+        WHEN @v_weekly_hosp_admissions_per_million REGEXP '[0-9]' THEN TRIM(@v_weekly_hosp_admissions_per_million) ELSE NULL
     END;
 
 
@@ -156,7 +144,7 @@ FIELDS TERMINATED BY ','
 ENCLOSED BY '"'
 LINES TERMINATED BY '\r\n'
 IGNORE 1 ROWS
-
+	
 (	iso_code,
 	continent,
 	location,
@@ -194,7 +182,6 @@ IGNORE 1 ROWS
 	@hospital_beds_per_thousand,
 	@life_expectancy,
 	@human_development_index)
-
 SET 
 	`date` = STR_TO_DATE(@`date`, '%d/%m/%Y'),
 	new_tests = NULLIF(@new_tests, ''),
@@ -230,7 +217,6 @@ SET
 	life_expectancy = NULLIF(@life_expectancy, ''),
 	human_development_index = NULLIF(@human_development_index, '');
 
-
 ALTER TABLE covid_deaths
 MODIFY COLUMN `date` DATE;
 
@@ -258,7 +244,7 @@ WHERE continent IS NOT NULL
 ORDER BY 1,2;
 
 
-		-- Muestra  la probabilidad de fallecer luego de ser infectado por el virus,agrupado por país.
+		-- Muestra  la probabilidad de fallecer luego de ser infectado por el virus, por país.
 		-- (Datos mostrados hasta el mes de Abril de 2021)
 SELECT cd.location, cd.`date`, cd.total_cases, cd.total_deaths, (total_deaths/total_cases)*100 AS death_percentage
 FROM covid_deaths AS cd
@@ -294,12 +280,10 @@ GROUP BY location
 ORDER BY Total_death_count DESC;
 
 
-/* Debido a que en el apartado "location" aparecen contienentes, procedp a revisar la tabla en busca de esta irregularidad.
-
-Luego de revisar la tabla, me doy cuenta de que cuando empiezo a colocar los contienentes en el campo "location", el campo "continent" nos lo muestra como vacío.
-
+/* 
+Debido a que en el apartado "location" aparecen continentes, procedo a revisar la tabla en busca de esta irregularidad.
+En la tabla, todos los continentes que aparecen en el campo "location", muestran 'vacíos' en el campo "continent".
 Procedo a actualizar la información de la tabla cambiando la entrada de vacío ('') por nulo(NULL) para poder filtrarlo en las consultas.
-
 Actualizo tambien las consultas previas con este nuevo filtro.
 */
 
@@ -307,7 +291,7 @@ UPDATE covid_deaths
 SET continent = NULL WHERE continent = '';
 
 
-		-- Por Continente 
+		-- Cantidad de fallecidos por Continente
 SELECT continent, MAX(total_deaths) AS total_death_count
 FROM covid_deaths
 WHERE continent IS NOT NULL
@@ -315,9 +299,10 @@ GROUP BY continent
 ORDER BY Total_death_count DESC;
 
 /*
-Al notar que los resultados no eran concordantes con cifras públicas, procedo a "acceder" a los datos de los contienentes invirtiendo el filto de "location" para que muestre los continentes en este campo.
-
-En la columna "location" aparecen las cifras "Mundiales", de la "Unión Europea" y datos "Internacionales". Incluyo los términos en el filtro para excluirlos de la consulta final.
+Al notar que los resultados no eran concordantes con cifras públicas, procedo a "acceder" a los datos de los contienentes invirtiendo el filto de "location" 
+para que muestre los continentes en este campo.
+En la columna "location" aparecen las cifras "Mundiales", de la "Unión Europea" y datos "Internacionales". 
+Incluyo estos términos en el filtro para excluirlos de la consulta final.
 */
 
 		-- Cantidad de fallecidos por Continente (actualizado)
@@ -414,5 +399,4 @@ INNER JOIN(
 	ON cd.location = md.location AND cd.`date` = md.date_
 WHERE continent IS NOT NULL
 ORDER BY 1;
-
 
