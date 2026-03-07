@@ -54,10 +54,11 @@ A través de las visualizaciones creadas, se identificaron los siguientes patron
   1. **Correlación de Letalidad Global:** A nivel mundial, la tasa de mortalidad se estabilizó cerca del **2.1%**. Sin embargo, el dashboard permite observar picos de letalidad en regiones con sistemas de salud saturados durante los primeros meses de 2021.
   2. **Disparidad Geográfica en Infecciones:** El mapa de calor revela que, aunque los países con mayor población absoluta (como India o EE. UU.) tienen los conteos más altos, países con menor población presentan porcentajes de infección per cápita significativamente más agresivos.
   3. **Impacto de la Inmunización:** Al cruzar los datos de vacunación con las muertes, se visualiza una tendencia a la baja en la letalidad en aquellos países que lograron superar el 10% de su población vacunada antes del cierre del análisis (abril 2021).  ERROR
-  4. **Dinámica Temporal:** La visualización por fecha muestra cómo los focos de infección migraron de Asia a Europa y posteriormente a América, permitiendo comparar la velocidad de propagación entre continentes.
+	4. **Dinámica Temporal:** La visualización por fecha muestra cómo los focos de infección migraron de Asia a Europa y posteriormente a América, permitiendo comparar la velocidad de propagación entre continentes.
 
-
+	
 ### Estructura del Repositorio
-  *consultas/*: Contiene el script completo de creación, carga y exploración.
-  *datasets/*: Enlace a la fuente original de los datos (Our World in Data).
-  *visuales/*: Enlaces a los dashboards de Tableau (próximamente).
+  * _consultas/_: Contiene el script completo de creación, carga y exploración.
+  * *datasets/*: Enlace a la fuente original de los datos (Our World in Data).
+  * *visuales/*: Enlaces a los dashboards de Tableau.
+
