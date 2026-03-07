@@ -370,33 +370,10 @@ WHERE continent IS NOT NULL
 GROUP BY location, population
 ORDER BY Percent_Population_Infected DESC;
 
-	-- 4.
+	-- 4. Infectados Regionales por Fecha
 SELECT location, population,`date`, MAX(total_cases) AS Highest_Infection_Count, 
 		MAX((total_cases/population))*100 AS Percent_Population_Infected
 FROM covid_deaths
 WHERE continent IS NOT NULL
 GROUP BY location, population, `date`
 ORDER BY Percent_Population_Infected DESC;
-
-	-- 4. Porcentaje de fallecidos luego de ser infectados
-SELECT cd.location, cd.population, cd.`date`, cd.total_cases, cd.total_deaths, (total_deaths/total_cases)*100 AS death_percentage
-FROM covid_deaths AS cd
-INNER JOIN(
-		SELECT location, MAX(`date`) as date_
-		FROM covid_deaths
-		GROUP BY location) as md
-	ON cd.location = md.location AND cd.`date` = md.date_
-WHERE continent IS NOT NULL
-ORDER BY 1;
-
-	-- 4. Porcentaje de la población infectada + fecha (?)
-SELECT cd.location, cd.population, cd.`date`, cd.total_cases, (cd.total_cases/cd.population)*100 AS Percent_Population_Infected
-FROM covid_deaths AS cd
-INNER JOIN(
-		SELECT location, MAX(`date`) as date_
-		FROM covid_deaths
-		GROUP BY location) as md
-	ON cd.location = md.location AND cd.`date` = md.date_
-WHERE continent IS NOT NULL
-ORDER BY 1;
-
