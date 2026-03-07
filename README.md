@@ -46,7 +46,7 @@ El análisis culmina en un Dashboard interactivo que permite explorar la evoluci
 
 <img width="1553" height="701" alt="Dashboard" src="https://github.com/user-attachments/assets/974fded0-5304-4e49-bae5-c966722182d1" />
 
-**[🔗 Ver Dashboard en Tableau Public](https://public.tableau.com/app/profile/rbdp/viz/Covid-19Dashboard_17728266476620/Dashboard1)**
+**[🔗 Ver Dashboard en Tableau Public](https://public.tableau.com/app/profile/ricardobdp/viz/Covid-19Dashboard_17728266476620/Dashboard1)**
 
 
 ### Hallazgos del Análisis Visual
