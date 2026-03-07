@@ -58,7 +58,7 @@ A través de las visualizaciones creadas, se identificaron los siguientes patron
 
 	
 ### Estructura del Repositorio
-  * _consultas/_: Contiene el script completo de creación, carga y exploración.
-  * *datasets/*: Carpeta con la fuente original de los datos.
-  * *visuales/*: Carpeta con la exportación de gráficos elaborados en Tableau.
+  * _consultas_ : Contiene el script completo de creación, carga y exploración.
+  * *datasets/* : Carpeta con la fuente original de los datos.
+  * *visuales/* : Carpeta con la exportación de gráficos elaborados en Tableau.
 
