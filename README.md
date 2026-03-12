@@ -51,10 +51,10 @@ El análisis culmina en un Dashboard interactivo que permite explorar la evoluci
 
 ### Hallazgos del Análisis Visual
 A través de las visualizaciones creadas, se identificaron los siguientes patrones:
-	1. **Correlación de Letalidad Global:** A nivel mundial, la tasa de mortalidad se estabilizó cerca del **2.1%**. Sin embargo, el dashboard permite observar picos de letalidad en regiones con sistemas de salud saturados durante los primeros meses de 2021.
-	2. **Distribución de Mortalidad por Continentes:** A través del gráfico de barras, se identifica que Europa y Norteamérica presentan los conteos de fallecidos más altos en términos absolutos.
-	3. **Disparidad Geográfica en Infecciones:** El mapa de calor revela que, aunque los países con mayor población absoluta (como India o EE. UU.) tienen los conteos más altos, países con menor población presentan porcentajes de infección per cápita significativamente más agresivos.
-	4. **Dinámica Temporal:** La visualización por fecha muestra cómo los focos de infección migraron de Asia a Europa y posteriormente a América, permitiendo comparar la velocidad de propagación entre continentes.
+  1. **Correlación de Letalidad Global:** A nivel mundial, la tasa de mortalidad se estabilizó cerca del **2.1%**. Sin embargo, el dashboard permite observar picos de letalidad en regiones con sistemas de salud saturados durante los primeros meses de 2021.
+  2. **Distribución de Mortalidad por Continentes:** A través del gráfico de barras, se identifica que Europa y Norteamérica presentan los conteos de fallecidos más altos en términos absolutos.
+  3. **Disparidad Geográfica en Infecciones:** El mapa de calor revela que, aunque los países con mayor población absoluta (como India o EE. UU.) tienen los conteos más altos, países con menor población presentan porcentajes de infección per cápita significativamente más agresivos.
+  4. **Dinámica Temporal:** La visualización por fecha muestra cómo los focos de infección migraron de Asia a Europa y posteriormente a América, permitiendo comparar la velocidad de propagación entre continentes.
 
 	
 ### Estructura del Repositorio
