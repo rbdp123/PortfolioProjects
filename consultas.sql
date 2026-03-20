@@ -109,10 +109,19 @@ IGNORE 1 ROWS
 	@weekly_hosp_admissions,
 	@v_weekly_hosp_admissions_per_million)
 SET 
-	`date` = STR_TO_DATE(@`date`, '%d/%m/%Y'),
+	`date` = STR_TO_DATE(@`date`, '%d/%m/%Y'), -- Ordenamos los datos de las fechas para su posterior conversión a date
 	population = NULLIF(@population, ''),
 	total_cases = NULLIF(@total_cases, ''),
-	new_cases = NULLIF(TRIM(REPLACE(REPLACE(@new_cases, CHAR(160), ''),' ', '')), ''),
+	new_cases = NULLIF( -- 4. Si el resultado es '', devuelve NULL
+					TRIM( -- 3. Limpia residuos de espacios en los extremos
+						REPLACE( -- 2. Elimina espacios estándar ' '
+							REPLACE(@new_cases, CHAR(160), ''),  -- 1. Elimina espacios de no separación (ASCII 160)
+						' ', 
+						''
+						)
+					),
+					''
+				),
 	new_cases_smoothed = NULLIF(@new_cases_smoothed, ''),
 	total_deaths = NULLIF(@total_deaths, ''),
 	new_deaths = NULLIF(@new_deaths, ''),
@@ -133,7 +142,9 @@ SET
 	weekly_hosp_admissions = NULLIF(@weekly_hosp_admissions, ''),
 	weekly_hosp_admissions_per_million = 
 	CASE 
-        WHEN @v_weekly_hosp_admissions_per_million REGEXP '[0-9]' THEN TRIM(@v_weekly_hosp_admissions_per_million) ELSE NULL
+        WHEN @v_weekly_hosp_admissions_per_million REGEXP '[0-9]' 	-- 1. Verifica si el dato contiene al menos un dígito (0-9)
+			THEN TRIM(@v_weekly_hosp_admissions_per_million) 		-- 2. Si hay números, elimina espacios en blanco en los extremos
+		ELSE NULL													-- 3. De lo contrario, devuelve 'NULL'
     END;
 
 
