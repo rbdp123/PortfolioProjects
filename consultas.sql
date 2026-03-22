@@ -113,15 +113,12 @@ SET
 	population = NULLIF(@population, ''),
 	total_cases = NULLIF(@total_cases, ''),
 	new_cases = NULLIF( -- 4. Si el resultado es '', devuelve NULL
-					TRIM( -- 3. Limpia residuos de espacios en los extremos
-						REPLACE( -- 2. Elimina espacios estándar ' '
-							REPLACE(@new_cases, CHAR(160), ''),  -- 1. Elimina espacios de no separación (ASCII 160)
-						' ', 
-						''
-						)
-					),
-					''
-				),
+						TRIM( -- 3. Limpia residuos de espacios en los extremos
+							REPLACE( -- 2. Elimina espacios estándar ' '
+									REPLACE(@new_cases, CHAR(160), ''),  -- 1. Elimina espacios de no separación (ASCII 160)
+									' ', '')
+							),
+					''),
 	new_cases_smoothed = NULLIF(@new_cases_smoothed, ''),
 	total_deaths = NULLIF(@total_deaths, ''),
 	new_deaths = NULLIF(@new_deaths, ''),
